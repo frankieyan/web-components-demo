@@ -11,14 +11,34 @@
       padding: 12px;
       font-family: sans-serif;
     }
+
+    main {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        min-width: 744px;
+        width: 75vw;
+      }
+    }
   </style>
 </head>
 <body>
-  <my-card>
-    <my-button>My awesome button</my-button>
-    <my-button disabled>My disabled button</my-button>
-  </my-card>
-  <script type="module" src="./components/my-button.js"></script>
-  <script type="module" src="./components/my-card.js"></script>
+  <main>
+    <my-card>
+      <my-button id="awesome-button">My awesome button</my-button>
+      <my-button id="disabled-button" disabled>My disabled button</my-button>
+      <p>Awesome button clicked <span id="awesome-button-click-count">0</span> times</p>
+      <p>Disabled button clicked <span id="disabled-button-click-count">0</span> times</p>
+    </my-card>
+
+    <script type="module" src="./components/my-button.js"></script>
+    <script type="module" src="./components/my-card.js"></script>
+    <script type="module" src="./app.js"></script>
+  </main>
 </body>
 </html>
