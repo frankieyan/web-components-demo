@@ -43,16 +43,14 @@ class MyButton extends HTMLElement {
     shadow.appendChild(template.content.cloneNode(true))
 
     this.#button = shadow.querySelector('button')
-  }
 
-  connectedCallback() {
-    this.#button.addEventListener('click', this.#handleButtonClick)
     this.addEventListener('click', this.#handleClick)
+    this.#button.addEventListener('click', this.#handleButtonClick)
   }
 
   disconnectedCallback() {
-    this.#button.removeEventListener('click', this.#handleButtonClick)
     this.removeEventListener('click', this.#handleClick)
+    this.#button.removeEventListener('click', this.#handleButtonClick)
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
