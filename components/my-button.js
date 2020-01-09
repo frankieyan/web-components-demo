@@ -24,7 +24,9 @@ template.innerHTML = `
     }
   </style>
 
-  <button class="button"></button>
+  <button class="button">
+    <slot></slot>
+  </button>
 `
 
 class MyButton extends HTMLElement {
@@ -44,7 +46,6 @@ class MyButton extends HTMLElement {
   }
 
   connectedCallback() {
-    this.#button.innerHTML = this.innerHTML
     this.#button.addEventListener('click', this.#handleButtonClick)
   }
 
