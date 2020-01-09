@@ -57,7 +57,7 @@ class MyButton extends HTMLElement {
 
   attributeChangedCallback(attrName, oldVal, newVal) {
     if (attrName === 'disabled') {
-      const disabled = newVal !== 'false'
+      const disabled = newVal === 'true' || newVal === ''
 
       if (disabled) {
         this.#button.setAttribute('disabled', '')
