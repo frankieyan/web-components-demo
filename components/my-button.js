@@ -47,10 +47,12 @@ class MyButton extends HTMLElement {
 
   connectedCallback() {
     this.#button.addEventListener('click', this.#handleButtonClick)
+    this.addEventListener('click', this.#handleClick)
   }
 
   disconnectedCallback() {
     this.#button.removeEventListener('click', this.#handleButtonClick)
+    this.removeEventListener('click', this.#handleClick)
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
@@ -70,6 +72,12 @@ class MyButton extends HTMLElement {
 
     const clickEvent = new CustomEvent('click', { bubbles: true })
     this.dispatchEvent(clickEvent)
+  }
+
+  #handleClick = (event) => {
+    if (!(event instanceof CustomEvent)) {
+      event.stopImmediatePropagation()
+    }
   }
 }
 
