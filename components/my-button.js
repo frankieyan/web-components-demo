@@ -30,6 +30,10 @@ template.innerHTML = `
 class MyButton extends HTMLElement {
   #button = null
 
+  static get observedAttributes() {
+    return ['disabled']
+  }
+
   constructor() {
     super()
 
@@ -37,44 +41,34 @@ class MyButton extends HTMLElement {
     shadow.appendChild(template.content.cloneNode(true))
 
     this.#button = shadow.querySelector('button')
-    this.#button.innerHTML = this.innerHTML
   }
 
   connectedCallback() {
-    this.#upgradeProperty('disabled')
-    this.#button.addEventListener('click', this.#handleClick)
+    this.#button.innerHTML = this.innerHTML
+    this.#button.addEventListener('click', this.#handleButtonClick)
   }
 
   disconnectedCallback() {
-    this.#button.removeEventListener('click', this.#handleClick)
+    this.#button.removeEventListener('click', this.#handleButtonClick)
   }
 
-  set disabled(value) {
-    const isDisabled = Boolean(value)
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    if (attrName === 'disabled') {
+      const disabled = newVal !== 'false'
 
-    if (isDisabled) {
-      return this.#button.setAttribute('disabled', '')
+      if (disabled) {
+        this.#button.setAttribute('disabled', '')
+      } else {
+        this.#button.removeAttribute('disabled')
+      }
     }
-
-    this.#button.removeAttribute('disabled')
   }
 
-  get disabled() {
-    return this.hasAttribute('disabled')
-  }
+  #handleButtonClick = (event) => {
+    event.stopPropagation()
 
-  #upgradeProperty = (prop) => {
-    if (!this[prop]) {
-      return
-    }
-
-    const value = this[prop]
-    delete this[prop]
-    this[prop] = value
-  }
-
-  #handleClick = () => {
-    console.log('clicked')
+    const clickEvent = new CustomEvent('click', { bubbles: true })
+    this.dispatchEvent(clickEvent)
   }
 }
 
