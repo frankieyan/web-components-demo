@@ -5,10 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Web Components Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 12px;
+      font-family: sans-serif;
+    }
+  </style>
 </head>
 <body>
-  <my-button>My awesome button</my-button>
-  <my-button disabled>My disabled button</my-button>
+  <my-card>
+    <my-button>My awesome button</my-button>
+    <my-button disabled>My disabled button</my-button>
+  </my-card>
   <script type="module" src="./components/my-button.js"></script>
+  <script type="module" src="./components/my-card.js"></script>
 </body>
 </html>
